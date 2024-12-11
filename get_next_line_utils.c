@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:43:22 by nbougrin          #+#    #+#             */
-/*   Updated: 2024/12/11 13:16:50 by nbougrin         ###   ########.fr       */
+/*   Updated: 2024/12/11 16:25:42 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,24 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strdup(const char *s1)
 {
-	char	*str;
+	char	*dest;
 	int		i;
 
 	if (!s1)
 		return (NULL);
 	i = 0;
-	while (s1[i] != '\0')
-		i++;
-	str = (char *)malloc((i + 1) * sizeof(char));
-	if (str == NULL)
+	i = ft_strlen(s1);
+	dest = (char *)malloc(sizeof(char) * (i + 1));
+	if (!dest)
 		return (NULL);
 	i = 0;
 	while (s1[i] != '\0')
 	{
-		str[i] = s1[i];
+		dest[i] = s1[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	dest[i] = '\0';
+	return (dest);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -94,24 +93,27 @@ char	*ft_strjoin(char *s1, char *s2)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*str;
+	char	*sub;
+	size_t	s_len;
 	size_t	i;
 
 	i = 0;
-	if (s == NULL)
+	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s))
+	s_len = ft_strlen(s);
+	if (start > s_len)
 		return (ft_strdup(""));
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
-	str = (char *)malloc((len + 1) * sizeof(char));
-	if (str == NULL)
+	if (len > s_len - start)
+		len = s_len - start;
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sub)
 		return (NULL);
-	while (i < len)
+	while (i < len && s[start])
 	{
-		str[i] = s[start + i];
+		sub[i] = s[start];
 		i++;
+		start++;
 	}
-	str[i] = '\0';
-	return (str);
+	sub[i] = '\0';
+	return (sub);
 }

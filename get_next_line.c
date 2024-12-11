@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:42:49 by nbougrin          #+#    #+#             */
-/*   Updated: 2024/12/11 15:23:21 by nbougrin         ###   ########.fr       */
+/*   Updated: 2024/12/11 16:20:47 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,23 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-void f()
-{
-    system("leaks a.out");
-}
-int main ()
-{
-// atexit(f);
-char *buff;
-    int fd = open ("t.txt", O_CREAT | O_RDWR,0666);
-    char *str = get_next_line(fd);
-    write(fd, "hello", 6);
-	free(str);
-	fd = open ("t.txt", O_CREAT | O_RDWR,0666);
-	str = get_next_line(fd);
-    printf("%s\n", str);
-free(str);
-}
+// void f()
+// {
+//     system("leaks a.out");
+// }
+// int main ()
+// {
+// // atexit(f);
+// char *buff;
+//     int fd = open ("t.txt", O_CREAT | O_RDWR,0666);
+//     char *str = get_next_line(fd);
+//     write(fd, "hello", 6);
+// 	free(str);
+// 	fd = open ("t.txt", O_CREAT | O_RDWR,0666);
+// 	str = get_next_line(fd);
+//     printf("%s\n", str);
+// free(str);
+// }
 
 
 // #include <fcntl.h>
@@ -126,18 +126,18 @@ free(str);
 
 // int main() {
 // 	// atexit(f);
-//     int fd = open("t.txt", O_RDONLY);  // Open the file for reading
+//     int fd = open("t.txt", O_CREAT|O_RDWR,0777);  // Open the file for reading
 //     if (fd < 0) {
 //         perror("Failed to open file");
 //         return 1;
 //     }
 
 //     char *line;
-//     while ((line = get_next_line(fd)) != NULL) {  // Continue until EOF
+//     while ((line = get_next_line(fd)))  {  // Continue until EOF
 //         printf("%s", line);  // Print the line (get_next_line already includes newline)
 //         free(line);  // Don't forget to free the memory allocated by get_next_line
 //     }
-// atexit(f);
+
 //     close(fd);  // Close the file descriptor
 //     return 0;
 // }
