@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:43:22 by nbougrin          #+#    #+#             */
-/*   Updated: 2024/12/09 17:44:33 by nbougrin         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:16:50 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,31 @@ char	*ft_strdup(const char *s1)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*newstr;
-	char	*head;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
+	i = 0;
+	j = 0;
 	if (!s1 && !s2)
 		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
+	if (s1 && !s2)
 		return (ft_strdup(s1));
-	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) +1 * sizeof(char));
-	if (!newstr)
+	if (s2 && !s1)
+		return (ft_strdup(s2));
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
 		return (NULL);
-	head = newstr;
-	while (*s1)
-		*newstr++ = *s1++;
-	while (*s2)
-		*newstr++ = *s2++;
-	*newstr = '\0';
-	return (head);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	return (str);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)

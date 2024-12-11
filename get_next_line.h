@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:43:14 by nbougrin          #+#    #+#             */
-/*   Updated: 2024/12/09 17:44:47 by nbougrin         ###   ########.fr       */
+/*   Updated: 2024/12/11 12:17:20 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
