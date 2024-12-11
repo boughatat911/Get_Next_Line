@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/09 17:42:49 by nbougrin          #+#    #+#             */
-/*   Updated: 2024/12/11 17:01:48 by nbougrin         ###   ########.fr       */
+/*   Created: 2024/12/11 16:46:45 by nbougrin          #+#    #+#             */
+/*   Updated: 2024/12/11 17:00:59 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_read_new_line(int fd, char *new_line)
 {
@@ -18,10 +18,10 @@ static char	*ft_read_new_line(int fd, char *new_line)
 	int		size_buff;
 	char	*tmp;
 
-	size_buff = 1;
-	buffer = malloc(((size_t)BUFFER_SIZE + 1));
+	buffer = malloc(((size_t)BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (free(new_line), NULL);
+	size_buff = 1;
 	while (!ft_strchr(new_line, '\n') && size_buff != 0)
 	{
 		size_buff = read(fd, buffer, BUFFER_SIZE);
@@ -42,7 +42,7 @@ static char	*ft_write_new_line(char *new_line)
 	char	*line;
 
 	i = 0;
-	if (!new_line || !(*new_line))
+	if (!new_line || !*new_line)
 		return (NULL);
 	while (new_line[i] != '\n' && new_line[i] != '\0')
 		i++;
@@ -76,23 +76,22 @@ static char	*ft_get_new_line(char *new_line)
 	if (!new)
 		return (free(new_line), NULL);
 	free (new_line);
-	new_line = NULL;
 	return (new);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*new_line;
+	static char	*new_line[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX || fd > OPEN_MAX)
 		return (NULL);
-	new_line = ft_read_new_line(fd, new_line);
-	if (!new_line)
+	new_line[fd] = ft_read_new_line(fd, new_line[fd]);
+	if (!new_line[fd])
 		return (NULL);
-	line = ft_write_new_line(new_line);
+	line = ft_write_new_line(new_line[fd]);
 	if (!line)
-		return (free(new_line), new_line = NULL, NULL);
-	new_line = ft_get_new_line(new_line);
+		return (free(new_line[fd]), new_line[fd] = NULL, NULL);
+	new_line[fd] = ft_get_new_line(new_line[fd]);
 	return (line);
 }
