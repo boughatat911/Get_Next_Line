@@ -1,3 +1,6 @@
+#include "get_next_line.h"
+
+#include "get_next_line_bonus.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -36,3 +39,58 @@
 //     close(fd);  // Close the file descriptor
 //     return 0;
 // }
+// int main()
+// {
+//     int fd;
+//     char *buff;
+
+//     fd = open("vb.txt",O_RDWR);
+//     // buff = get_next_line(fd);
+//     while ((buff = get_next_line(fd))!= NULL)
+//     {
+//     printf("%s",buff);
+//         /* code */
+//     }
+//     close(fd);
+//     printf("\n");
+//     fd = open("t.txt",O_RDWR);
+//     // buff = get_next_line(fd);
+//     while ((buff = get_next_line(fd))!= NULL)
+//     {
+//     printf("%s",buff);
+//         /* code */
+//     }
+
+    
+// }
+
+int main(void)
+{
+    // int fd;
+    char *line;
+
+    // Open a file for testing
+    int fd = open("vb.txt", O_RDONLY);  // Change "test.txt" to the path of your test file
+
+   line = get_next_line_bonus(fd);
+    
+        printf("%s", line);
+        free(line);  // Don't forget to free each line!
+   
+    printf("\n");
+    fd = open("t.txt", O_RDONLY);  // Change "test.txt" to the path of your test file
+
+    // Read and print lines from the file
+   line = get_next_line_bonus(fd);
+
+        printf("%s", line);
+        free(line);  // Don't forget to free each line!
+    //  fd = open("vb.txt", O_RDONLY);  // Change "test.txt" to the path of your test file
+
+   line = get_next_line(fd);
+    
+        printf("%s", line);
+
+    close(fd);  // Close the file after reading
+    return 0;
+}

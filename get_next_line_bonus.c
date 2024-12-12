@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:46:45 by nbougrin          #+#    #+#             */
-/*   Updated: 2024/12/11 17:00:59 by nbougrin         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:24:50 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_next_line(int fd)
 	static char	*new_line[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX || fd > OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX || fd >= OPEN_MAX)
 		return (NULL);
 	new_line[fd] = ft_read_new_line(fd, new_line[fd]);
 	if (!new_line[fd])
